@@ -125,6 +125,112 @@ dbh = [28.3,
  19.9,
  31.9]
 
+ratio = [3.7659783134503333,
+ 3.16381359132304,
+ 2.6656279455102214,
+ 1.7759791896158508,
+ 3.4303939172538946,
+ 4.808919094890117,
+ 2.2829183379196496,
+ 2.3571490015268153,
+ 2.914007974201992,
+ 4.622860464769928,
+ 4.272303066268673,
+ 3.704450107447063,
+ 2.6075738555615513,
+ 2.8935637389965576,
+ 1.7667942548824962,
+ 2.289766994459121,
+ 3.1792829450171705,
+ 3.7731208383426873,
+ 0.9032137895929434,
+ 1.1925315788199478,
+ 1.22657120827881,
+ 1.7017011501435793,
+ 5.510891325596027,
+ 2.786412567786783,
+ 2.4323045841078312,
+ 0.9306131258187095,
+ 3.918892499358037,
+ 1.6420671681320587,
+ 1.1440107273381708,
+ 1.114951124052217,
+ 2.342388228636106,
+ 4.3152617951735746,
+ 5.391849732400308,
+ 2.7995400026740476,
+ 4.332685878812626,
+ 4.002931197726593,
+ 2.667872536684566,
+ 3.9481176453159987,
+ 5.440661657807472,
+ 5.998596917736059,
+ 3.4068942650536367,
+ 3.2853819950859853,
+ 2.52093193893981,
+ 3.38233705202912,
+ 2.0118858910318065,
+ 2.0358861009213243,
+ 4.6169605834666285,
+ 1.351139370730167,
+ 5.314246372121528,
+ 4.984474968986885,
+ 3.1292317346426404,
+ 4.996066828473559]
+
+dbh= [28.3,
+ 20.0,
+ 16.7,
+ 10.4,
+ 23.2,
+ 34.3,
+ 14.7,
+ 15.9,
+ 18.8,
+ 30.0,
+ 26.45,
+ 21.2,
+ 18.5,
+ 21.0,
+ 12.2,
+ 14.8,
+ 20.7,
+ 25.1,
+ 5.0,
+ 7.2,
+ 7.2,
+ 10.85,
+ 38.0,
+ 15.8,
+ 14.9,
+ 5.5,
+ 25.7,
+ 9.1,
+ 6.6,
+ 7.0,
+ 14.0,
+ 29.9,
+ 38.5,
+ 18.0,
+ 36.9,
+ 24.7,
+ 16.3,
+ 28.5,
+ 35.9,
+ 40.7,
+ 23.6,
+ 25.0,
+ 15.8,
+ 20.1,
+ 13.5,
+ 12.9,
+ 30.5,
+ 7.6,
+ 32.6,
+ 35.1,
+ 19.9,
+ 31.9]
+
 calibiration_data = pd.DataFrame({
     "ratio": ratio,
     "measured_dbh": dbh
@@ -141,10 +247,6 @@ def getPrediction(ratio):
         return round(pred.tolist()[0],2)
     except:
         return None
-
-
-
-
 
 
 # define pixel constants
@@ -248,7 +350,7 @@ def find_continuous_indexes(lst, value):
 
 def generateVisualization_TrueAnnotation_zoomed(seg_image, x,y, avg_tree_pixel_width, w , file, indexes, box, measured_dbh, predicted_dbh):
     #/Users/edwardamoah/Documents/GitHub/tree_dbh_estimation/data/outputs
-    output_path = f'/Users/edwardamoah/Documents/GitHub/tree_dbh_estimation/data/outputs/overlay_TrueAnnotation_zoom_{file}.png'
+    output_path = f'/Users/edwardamoah/Documents/GitHub/pv_mrv/dbh_estimation_algorithm_FastAPI/data/true_annotation_overlay/overlay_TrueAnnotation_zoom_{file}.png'
     alpha = 0.6
     fig = plt.figure(figsize=(50, 20))
     grid_spec = gridspec.GridSpec(1, 3, width_ratios=[1, 1 , 1])
@@ -273,7 +375,7 @@ def generateVisualization_TrueAnnotation_zoomed(seg_image, x,y, avg_tree_pixel_w
 
     # show mask ovelay on image with tag and trunk pixel widht estimations
     plt.subplot(grid_spec[2])
-    plt.title(f'Pixel Width Overlay (Predicted dbh = {predicted_dbh})', fontdict = {'fontsize' : 30})
+    plt.title(f'Pixel Width Overlay (ratio = {predicted_dbh})', fontdict = {'fontsize' : 30})
     DrawImage = ImageDraw.Draw(mask1)
     # draw tag width estimation
     DrawImage.line([(int(x-(w/2)), int(y+(w/2))),(int(x+(w/2)), int(y+(w/2)))], fill="red", width=5)
@@ -297,7 +399,8 @@ def generateVisualization_TrueAnnotation_zoomed(seg_image, x,y, avg_tree_pixel_w
 
 def generateVisualization_TrueAnnotation(seg_image, x,y, avg_tree_pixel_width, w , file, indexes, box, measured_dbh, predicted_dbh):
     #/Users/edwardamoah/Documents/GitHub/tree_dbh_estimation/data/outputs
-    output_path = f'/Users/edwardamoah/Documents/GitHub/tree_dbh_estimation/data/outputs/overlay_TrueAnnotation_{file}.png'
+    output_path = f'/Users/edwardamoah/Documents/GitHub/pv_mrv/dbh_estimation_algorithm_FastAPI/data/true_annotation_overlay/overlay_TrueAnnotation_{file}.png'
+    
     alpha = 0.6
     fig = plt.figure(figsize=(50, 20))
     grid_spec = gridspec.GridSpec(1, 3, width_ratios=[1, 1 , 1])
@@ -324,10 +427,10 @@ def generateVisualization_TrueAnnotation(seg_image, x,y, avg_tree_pixel_width, w
 
     # show mask ovelay on image with tag and trunk pixel widht estimations
     plt.subplot(grid_spec[2])
-    plt.title(f'Pixel Width Overlay (Predicted dbh = {predicted_dbh})', fontdict = {'fontsize' : 30})
+    plt.title(f'Pixel Width Overlay (ratio = {predicted_dbh})', fontdict = {'fontsize' : 30})
     DrawImage = ImageDraw.Draw(mask1)
     # draw tag width estimation
-    DrawImage.line([(int(x-(w/2)), int(y+(w/2))),(int(x+(w/2)), int(y+(w/2)))], fill="red", width=5)
+    DrawImage.line([(int(x-(w/2)), int(y+(w/2))),(int(x+(w/2)), int(y+(w/2)))], fill="red", width=10)
     # draw tree trunk width estimation
 
     # draw tag box
@@ -339,7 +442,7 @@ def generateVisualization_TrueAnnotation(seg_image, x,y, avg_tree_pixel_width, w
 
     tree_x1 = indexes[0]
     wt = avg_tree_pixel_width
-    DrawImage.line([(tree_x1 , int(y-(w/2))),( tree_x1 + wt , int(y-(w/2)))], fill="red", width=5)
+    DrawImage.line([(tree_x1 , int(y-(w/2))),( tree_x1 + wt , int(y-(w/2)))], fill="red", width=10)
     plt.imshow(mask1)
     plt.imshow(seg_image, alpha=alpha)
 
@@ -484,7 +587,7 @@ def getTagWidth(x1, y1, x2, y2, seg_image):
 
 
 
-def getTreePixelWidth(seg_image, file, measured_dbh, generate_viz):  
+def getTreePixelWidth(seg_image, file, measured_dbh, generate_viz, ratio=False):  
   #print(type(seg_image))
   try:
     
@@ -533,10 +636,13 @@ def getTreePixelWidth(seg_image, file, measured_dbh, generate_viz):
 
     tag_width = getTagWidth( max(int(x-w),0) , max(int(y-h),0), min(int(x+w),len(seg_image[0])), min(int(y+h),len(seg_image)), seg_image) # Search around the tag
 
-    if calibration != False:
-        predicted_dbh = calibration.getPrediction(avg_tree_pixel_width[0]/tag_width)
+    if not ratio:
+        if calibration != False:
+            predicted_dbh = calibration.getPrediction(avg_tree_pixel_width[0]/tag_width)
+        else:
+            predicted_dbh = getPrediction(avg_tree_pixel_width[0]/tag_width)
     else:
-        predicted_dbh = getPrediction(avg_tree_pixel_width[0]/tag_width)
+        predicted_dbh = avg_tree_pixel_width[0]/tag_width
     
     if generate_viz == True:
         generateVisualization(seg_image, x,y, avg_tree_pixel_width[0] ,w, file, avg_tree_pixel_width[1], box, measured_dbh, predicted_dbh)

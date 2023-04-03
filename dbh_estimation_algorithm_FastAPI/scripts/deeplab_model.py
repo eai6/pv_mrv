@@ -6,9 +6,7 @@ import tensorflow.compat.v1 as tf
 
 domain = 'tree_trunk'
 
-path_to_model = '/Users/edwardamoah/Documents/GitHub/tree_semantic_segmentation/models/tree_trunk/tree_trunk_frozen_graph_1.4.pb'
-
-large_to_model = '/Users/edwardamoah/Documents/GitHub/tree_semantic_segmentation/models/tree_trunk/tree_trunk_frozen_graph_1.3.pb'
+path_to_model = '/Users/edwardamoah/Documents/GitHub/pv_mrv/dbh_estimation_algorithm_FastAPI/semantic_segmentation_model/tree_trunk_frozen_graph.pb'
 
 #### load DeepLab Model #####
 class DeepLabModel(object):
@@ -55,12 +53,7 @@ class DeepLabModel(object):
     return resized_image, seg_map
 
 
-#MODEL = DeepLabModel(path_to_model) 
-
 dbh_MODEL = DeepLabModel(path_to_model) 
-
-zoom_MODEL = DeepLabModel(large_to_model) 
-
 
 def create_tree_trunk_label_colormap():
   """Creates a label colormap for the locusts dataset.
