@@ -6,7 +6,7 @@ import tensorflow.compat.v1 as tf
 
 domain = 'tree_trunk'
 
-path_to_model = '/Users/edwardamoah/Documents/GitHub/pv_mrv/dbh_estimation_algorithm_FastAPI/app/semantic_segmentation_model/tree_trunk_frozen_graph.pb'
+path_to_model = 'app/semantic_segmentation_model/tree_trunk_frozen_graph.pb'
 
 #### load DeepLab Model #####
 class DeepLabModel(object):
