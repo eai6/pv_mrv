@@ -1,12 +1,12 @@
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 # %tensorflow_version 1.x
 import tensorflow.compat.v1 as tf
 
 domain = 'tree_trunk'
 
-path_to_model = '/Users/edwardamoah/Documents/GitHub/pv_mrv/dbh_estimation_algorithm_FastAPI/semantic_segmentation_model/tree_trunk_frozen_graph.pb'
+path_to_model = '/Users/edwardamoah/Documents/GitHub/pv_mrv/dbh_estimation_algorithm_FastAPI/app/semantic_segmentation_model/tree_trunk_frozen_graph.pb'
 
 #### load DeepLab Model #####
 class DeepLabModel(object):
@@ -45,7 +45,7 @@ class DeepLabModel(object):
     width, height = image.size
     resize_ratio = 1.0 * self.INPUT_SIZE / max(width, height)
     target_size = (int(resize_ratio * width), int(resize_ratio * height))
-    resized_image = image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+    resized_image = image.convert('RGB').resize(target_size)
     batch_seg_map = self.sess.run(
         self.OUTPUT_TENSOR_NAME,
         feed_dict={self.INPUT_TENSOR_NAME: [np.asarray(resized_image)]})

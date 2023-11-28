@@ -1,2 +1,2 @@
-dbh_estimation_algorithm_FastAPI/data/true_annotation_overlay/*
-dbh_estimation_algorithm_FastAPI/semantic_segmentation_model/*
+dbh_estimation_algorithm_FastAPI/app/data/true_annotation_overlay/*
+dbh_estimation_algorithm_FastAPI/app/semantic_segmentation_model/*

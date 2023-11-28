@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
-from scripts import helpers, segmentation
+from app.scripts import helpers, segmentation
 import time
 
 app = FastAPI()
@@ -23,7 +23,7 @@ async def recognize(measured_dbh: float ,uploaded_file: UploadFile = File(...)):
     # generate a temporal filename
     #filename = f"{helpers.generate_random_file_name()}@{uploaded_file.filename}"
     filename = uploaded_file.filename
-    file_location = f"data/{filename}"
+    file_location = f"app/data/{filename}"
     
     # save file temporally
     helpers.saveUploadfile(file_location, uploaded_file)

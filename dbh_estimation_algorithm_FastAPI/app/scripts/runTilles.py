@@ -15,10 +15,10 @@ def runTile(filename, tile_number):
 
     # move to background later -- saved mask
     new_seg_iamge = Image.fromarray(np.uint8(seg_image)).convert('RGB')
-    new_seg_iamge.save(f'data/outputs/temp_tile_{tile_number}.png')
-    resized_img.save(f'data/outputs/resized_img_{tile_number}.png')
+    new_seg_iamge.save(f'app/data/outputs/temp_tile_{tile_number}.png')
+    resized_img.save(f'app/data/outputs/resized_img_{tile_number}.png')
 
-    return [f'data/outputs/temp_tile_{tile_number}.png', f'data/outputs/resized_img_{tile_number}.png']
+    return [f'app/data/outputs/temp_tile_{tile_number}.png', f'app/data/outputs/resized_img_{tile_number}.png']
 
 
 def stitch_tiles_together(tile_paths) -> Image.Image:
@@ -74,7 +74,7 @@ def runTilles(path):
 
     # stich resized images together
     resized_img = stitch_tiles_together(resized_img_paths)
-    resized_img.save('data/outputs/resized_img.png')
+    resized_img.save('app/data/outputs/resized_img.png')
 
     # convert image into numpy arrray
     seg_image = asarray(seg_image)

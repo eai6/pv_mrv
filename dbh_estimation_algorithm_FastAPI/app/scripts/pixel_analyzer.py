@@ -6,16 +6,18 @@ from matplotlib import gridspec
 import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw
 import imutils
-from imutils import perspective
 import math
 import pandas as pd
 import statsmodels.formula.api as smf
 
+from app.scripts import calibration
+
+'''
 calibration = False
 try:
-    from scripts import calibration
+    from app.scripts import calibration
 except:
-    print("Can not import scripts")
+    print("Can not import scripts in pa")
 
 ####### Calibiration Code ########
 
@@ -248,6 +250,7 @@ def getPrediction(ratio):
     except:
         return None
 
+'''
 
 # define pixel constants
 trunk = [0,85,0]
@@ -450,14 +453,14 @@ def generateVisualization_TrueAnnotation(seg_image, x,y, avg_tree_pixel_width, w
     plt.savefig(output_path)
 
 def generateVisualization(seg_image, x,y, avg_tree_pixel_width, w , file, indexes, box, measured_dbh, predicted_dbh):
-    output_path = f'data/outputs/overlay_{file}.png'
+    output_path = f'app/data/outputs/overlay_{file}.png'
     alpha = 0.6
     fig = plt.figure(figsize=(60, 20))
     grid_spec = gridspec.GridSpec(1, 5, width_ratios=[1, 1, 1, 1, 1])
 
 
     # original image 
-    mask_location = 'data/outputs/resized_original_img_1.png' #'data/outputs/temp.png'
+    mask_location = 'app/data/outputs/resized_original_img_1.png' #'data/outputs/temp.png'
     mask1 = Image.open(mask_location)
     plt.subplot(grid_spec[0])
     plt.title(f'Original Image (Measured dbh = {measured_dbh})', fontdict = {'fontsize' : 30})
@@ -465,7 +468,7 @@ def generateVisualization(seg_image, x,y, avg_tree_pixel_width, w , file, indexe
     plt.axis('off')
 
     # original image with mask
-    mask_location = 'data/outputs/seg_image_original_1.png' #'data/outputs/temp.png'
+    mask_location = 'app/data/outputs/seg_image_original_1.png' #'data/outputs/temp.png'
     mask = Image.open(mask_location)
     plt.subplot(grid_spec[1])
     plt.title('Original Segmetation Mask', fontdict = {'fontsize' : 30})
@@ -474,7 +477,7 @@ def generateVisualization(seg_image, x,y, avg_tree_pixel_width, w , file, indexe
     plt.axis('off')
 
     # show  resized image
-    filename =  'data/outputs/resized_original_img.png' #'data/outputs/resized_img.png'
+    filename =  'app/data/outputs/resized_original_img.png' #'data/outputs/resized_img.png'
     img = Image.open(filename)
     plt.subplot(grid_spec[2])
     plt.title('Resized Image', fontdict = {'fontsize' : 30})
@@ -637,10 +640,8 @@ def getTreePixelWidth(seg_image, file, measured_dbh, generate_viz, ratio=False):
     tag_width = getTagWidth( max(int(x-w),0) , max(int(y-h),0), min(int(x+w),len(seg_image[0])), min(int(y+h),len(seg_image)), seg_image) # Search around the tag
 
     if not ratio:
-        if calibration != False:
-            predicted_dbh = calibration.getPrediction(avg_tree_pixel_width[0]/tag_width)
-        else:
-            predicted_dbh = getPrediction(avg_tree_pixel_width[0]/tag_width)
+        predicted_dbh = calibration.getPrediction(avg_tree_pixel_width[0]/tag_width)
+        
     else:
         predicted_dbh = avg_tree_pixel_width[0]/tag_width
     
@@ -716,7 +717,6 @@ def getZoomCordinates(seg_image, buffer_pixels, resized_img, width, height):
 
 
 TAG_PIXEL_THRESHOLD = 20
-file = "/Users/edwardamoah/Documents/GitHub/tree_dbh_estimation/data/static/tag_pixels.txt"
 def isTagInMask(seg_image):
     """ Takes a numpy array of an image and return True if the image has a tag pixel"""
     tag_pixel_count = 0
@@ -726,9 +726,7 @@ def isTagInMask(seg_image):
                 tag_pixel_count+=1
             else: 
                 continue
-    f = open(file, "a")
-    f.write(f",{str(tag_pixel_count)}")
-    f.close()
+
     if tag_pixel_count > TAG_PIXEL_THRESHOLD:
         return True
     return False
