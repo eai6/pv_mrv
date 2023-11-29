@@ -11,6 +11,9 @@ COPY ./requirements.txt /code/requirements.txt
 RUN apt-get -y update
 RUN apt-get -y upgrade
 
+# Install libgl1-mesa-glx
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+
 #
 RUN pip install --upgrade pip
 
