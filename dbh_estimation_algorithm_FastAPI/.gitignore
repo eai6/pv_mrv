@@ -1,5 +1,7 @@
-data/outputs/*
-data/true_annotation_overlay/*
+app/data/outputs/*
+app/data/mask_tiles/*
+app/data/tiles/*
+app/data/resized_tiles/*
 venv
 app/__pycache__
 app/scripts/__pycache__/*

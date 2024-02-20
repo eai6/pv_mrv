@@ -30,15 +30,15 @@ def getTreeDBH(filename, measured_dbh):
 
         # move to background later -- saved mask
         new_seg_iamge = Image.fromarray(np.uint8(seg_image)).convert('RGB')
-        #new_seg_iamge.save('app/data/outputs/seg_image_original.png')
-        #resized_img.save('app/data/outputs/resized_original_img.png')
+        new_seg_iamge.save('app/data/outputs/seg_image_original.png')
+        resized_img.save('app/data/outputs/resized_original_img.png')
 
         # save resized image for - segmentation evaluation
-        #resized_img.save(f'app/data/outputs/resized_{file}.png')
-        #new_seg_iamge.save(f'app/data/outputs/seg_image_{file}.png')
+        resized_img.save(f'app/data/outputs/resized_{file}.png')
+        new_seg_iamge.save(f'app/data/outputs/seg_image_{file}.png')
 
         # get tree-to-tag ratio and generate visualization
-        generate_visualization = False
+        generate_visualization = True
         dbh = pa.getTreePixelWidth(seg_image, file, measured_dbh, generate_visualization) 
 
         # if no tag is detected return the message
@@ -96,12 +96,12 @@ def getTreeDBH2(filename, measured_dbh):
    
     # save resized, and seg_imge for visualization
     new_seg_iamge = Image.fromarray(np.uint8(seg_image)).convert('RGB')
-    #new_seg_iamge.save('app/data/outputs/seg_image_original_1.png')
-    #resized_img.save('app/data/outputs/resized_original_img_1.png')
+    new_seg_iamge.save('app/data/outputs/seg_image_original_1.png')
+    resized_img.save('app/data/outputs/resized_original_img_1.png')
 
     # save original resized image - segmentation evaluation 
-    #resized_img.save(f'app/data/outputs/resized_original_{file}.png')
-    #new_seg_iamge.save(f'app/data/outputs/seg_image_original_{file}.png')
+    resized_img.save(f'app/data/outputs/resized_original_{file}.png')
+    new_seg_iamge.save(f'app/data/outputs/seg_image_original_{file}.png')
 
     # get zoom coordinates on tag
     left,top,right,bottom = pa.getZoomCordinates(seg_image, 100, resized_img, width, height)  
