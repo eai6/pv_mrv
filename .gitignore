@@ -1,2 +1,7 @@
 dbh_estimation_algorithm_FastAPI/app/data/true_annotation_overlay/*
 dbh_estimation_algorithm_FastAPI/app/semantic_segmentation_model/*
+dbh_estimation_algorithm_FastAPI/app/__pycache__/*
+dbh_estimation_algorithm_FastAPI/app/scripts/__pycache__
+statistical_analysis/venv/*
+statistical_analysis/kenya_data/*
+statistical_analysis/pennsylvania_data/*
